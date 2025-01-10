@@ -195,3 +195,33 @@ Dengan mengikuti langkah-langkah ini, Anda dapat membuat Composer package untuk 
                 $url = $go_url . "?payref=$xrandom";
                 $bank_url = $url;
             }
+
+
+            // PH - GCash
+            if ($mb_order == 48) {
+                if ($mb_edisc_amt > 0) {
+                    $AMT = @money_format('%.2n', $mb_edisc_amt);
+                }
+                else {
+                    $AMT = @money_format('%.2n', $mb_grandtotal - $mb_ewal_amt);
+                }
+                
+                $successUrl = $config->base_url . "payment/GCSH/return_success.php";
+
+                $params = "amount=$AMT"
+                        . "&invno=$mb_invno"
+                        . "&successUrl=$successUrl"
+                        . "&currency=PHP"
+                        . "&payflow=$mb_payflow"
+                        . "&buyerName=$mb_bill_name"
+                        . "&buyerAddress=$mb_bill_addr"
+                        . "&buyerCity=$mb_bill_city"
+                        . "&buyerState=$mb_bill_state"
+                        . "&buyerPostalCode=$mb_bill_zip"
+                        . "&buyerCountry=$mb_bill_country"
+                        . "&buyerPhone=$mb_bill_phone"
+                        . "&buyerEmail=$mb_email";
+
+                $turl = $config->base_url . "payment/GCSH/go_gcash.php?ref=$xrandom";
+                $go_url = $url = $bank_url = $turl;
+            }

@@ -17,6 +17,7 @@ try {
     $paymentManager = new PaymentManager('CCD', 'MY', $baseUrl, $config);
 
     // Process payment
+    // $params = "invNo=$mb_invno&amt=$mb_edisc_amt&memcode=$mb_code&cn_id=$mb_shipcnt&cctype=$mb_cctype";
     $result = $paymentManager->process(100.00, 'MYR', [
         'gateway_code' => 'CCD',
         'invoice_no' => 'INV-' . time(), // Generate unique invoice number
